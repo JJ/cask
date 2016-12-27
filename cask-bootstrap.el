@@ -59,6 +59,7 @@
           (error
            (add-to-list 'package-archives (cons "gnu" "https://elpa.gnu.org/packages/") t)
            (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
+	   (setq package-check-signature nil)
            (package-refresh-contents)
            (mapc
             (lambda (package)
