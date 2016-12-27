@@ -33,8 +33,8 @@ from subprocess import CalledProcessError, check_call
 
 HOME = os.path.expanduser('~')
 TARGET_DIRECTORY = os.path.join(HOME, '.cask')
-REPOSITORY = 'https://github.com/cask/cask.git'
-ISSUE_TRACKER = 'https://github.com/cask/cask/issues'
+REPOSITORY = 'https://github.com/JJ/cask.git'
+ISSUE_TRACKER = 'https://github.com/JJ/cask/issues'
 
 
 class CaskGoError(Exception):
