@@ -33,8 +33,8 @@ from subprocess import CalledProcessError, check_call
 
 HOME = os.path.expanduser('~')
 TARGET_DIRECTORY = os.path.join(HOME, '.cask')
-REPOSITORY = 'https://github.com/JJ/cask.git'
-ISSUE_TRACKER = 'https://github.com/JJ/cask/issues'
+REPOSITORY = 'https://github.com/cask/cask.git'
+ISSUE_TRACKER = 'https://github.com/cask/cask/issues'
 
 
 class CaskGoError(Exception):
@@ -54,6 +54,15 @@ def success(s):
 def fail(s):
     print(FAIL + s + ENDC, file=sys.stderr)
     sys.exit(1)
+
+
+def bootstrap_cask(target_directory):
+    cask = os.path.join(target_directory, 'bin', 'cask')
+    try:
+        check_call([sys.executable, cask, 'upgrade-cask'])
+    except CalledProcessError:
+        raise CaskGoError('Cask could not be bootstrapped. Try again later, '
+                          'or report an issue at {0}'.format(ISSUE_TRACKER))
 
 
 def install_cask(target_directory):
@@ -78,7 +87,7 @@ def install_cask(target_directory):
 def main():
     try:
         install_cask(TARGET_DIRECTORY)
-#        bootstrap_cask(TARGET_DIRECTORY)
+        bootstrap_cask(TARGET_DIRECTORY)
         success("""\
 Successfully installed Cask!  Now, add the cask binary to your $PATH:
   export PATH="{0}/bin:$PATH\"""".format(TARGET_DIRECTORY))
